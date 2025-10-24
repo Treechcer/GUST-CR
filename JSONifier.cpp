@@ -1,32 +1,44 @@
-#include <iostream>
+#include <any>
 #include <fstream>
-#include <string> 
+#include <iostream>
 #include <sstream>
-#include <vector>
 #include <stdexcept>
+#include <string>
+#include <vector>
+;
 #ifdef _WIN32
-    #include <windows.h>
+#include <windows.h>
 #endif
 
-std::string ver = "0.0.1";
+std::string ver = "0.0.2";
 
-class JSON{
+class JSON {
     public:
         std::string name;
         std::string value;
 
-    JSON(std::string name, std::string value){
+    JSON(std::string name, std::string value) {
         this->name = name;
         this->value = value;
     }
+
+    static std::any getValuesFromName(std::string name, std::vector<JSON> atrs){
+        for (int i = 0; i < atrs.size(); i++){
+            if (atrs[i].name == name){
+                return atrs[i].value;
+            }
+        }
+
+        throw std::invalid_argument("name doesn't exist in JSON");
+    }
 };
 
-std::vector <std::vector<std::string>> parse(std::string contentOfJSON);
+std::vector<std::vector<std::string>> parse(std::string contentOfJSON);
 
-int main(){
-    #ifdef _WIN32
-        SetConsoleOutputCP(CP_UTF8);
-    #endif
+int main() {
+#ifdef _WIN32
+    SetConsoleOutputCP(CP_UTF8);
+#endif
 
     std::ifstream file("test.json");
     std::stringstream buffer;
@@ -36,91 +48,107 @@ int main(){
 
     std::cout << content << std::endl;
 
-    //JSON test("test", "value");
-    //std::cout << test.name << std::endl;
-    //std::cout << test.valueBP << std::endl;
+    // JSON test("test", "value");
+    // std::cout << test.name << std::endl;
+    // std::cout << test.value << std::endl;
 
-    std::vector <std::vector <std::string>> parsed = parse(content);
+    std::vector<std::vector<std::string>> parsed = parse(content);
+    std::vector<JSON> atrs;
+    for (int index = 0; index < parsed[0].size(); index++) {
+        atrs.push_back(JSON(parsed[0][index], parsed[1][index]));
+    }
+
+    for (int i = 0; i < atrs.size(); i++)
+    {
+        std::cout << atrs[i].name << " " << atrs[i].value << std::endl;
+    }
+
+    std::cout << std::any_cast<std::string>(JSON::getValuesFromName("textsd", atrs)) << std::endl;
 
     return 0;
 }
 
-std::vector <std::vector<std::string>> parse(std::string contentOfJSON){
-    std::vector <std::string> names;
-    std::vector <std::string> values;
+std::vector<std::vector<std::string>> parse(std::string contentOfJSON) {
+    std::vector<std::string> names;
+    std::vector<std::string> values;
     bool wasColon = false;
 
-    while (contentOfJSON.length() > 0){
+    while (contentOfJSON.length() > 0) {
         char c = contentOfJSON[0];
         if (c == ' ' || c == '{' || c == '}' || c == '\n') {
-            contentOfJSON.erase(0,1);
+            contentOfJSON.erase(0, 1);
             continue;
         }
 
         if (c == ':') {
-            contentOfJSON.erase(0,1);
+            contentOfJSON.erase(0, 1);
             wasColon = true;
             continue;
         }
         if (c == ',') {
-            contentOfJSON.erase(0,1);
+            contentOfJSON.erase(0, 1);
             wasColon = false;
             continue;
         }
 
-        if (c == '"'){
+        if (c == '"') {
             std::string varName = "";
-            while (true){
-                contentOfJSON.erase(0,1);
+            while (true) {
+                contentOfJSON.erase(0, 1);
                 char ch = contentOfJSON[0];
-                if (ch == '"') break; 
+                if (ch == '"')
+                    break;
 
                 varName.push_back(ch);
             }
-            if (wasColon) values.push_back(varName);
-            else names.push_back(varName);
-        }
-        else if((c >= '0' && c <= '9') || c == '-'){
+            if (wasColon)
+                values.push_back(varName);
+            else
+                names.push_back(varName);
+        } else if ((c >= '0' && c <= '9') || c == '-') {
             std::string value = "";
-            while (true){
+            while (true) {
                 char ch = contentOfJSON[0];
-                if (ch == ',' || ch == '\n') break; 
+                if (ch == ',' || ch == '\n')
+                    break;
 
                 value.push_back(ch);
-                contentOfJSON.erase(0,1);
+                contentOfJSON.erase(0, 1);
             }
             values.push_back(value);
             continue;
-        }
-        else{
-            if (contentOfJSON[0] == 't' && contentOfJSON[1] == 'r' && contentOfJSON[2] == 'u' && contentOfJSON[3] == 'e'){
-                if (!wasColon) throw std::invalid_argument("not valid JSON");
+        } else {
+            if (contentOfJSON[0] == 't' && contentOfJSON[1] == 'r' &&
+                contentOfJSON[2] == 'u' && contentOfJSON[3] == 'e') {
+                if (!wasColon)
+                    throw std::invalid_argument("not valid JSON");
                 values.push_back("true");
-                contentOfJSON.erase(0,4);
-            }
-            else if (contentOfJSON[0] == 'f' && contentOfJSON[1] == 'a' && contentOfJSON[2] == 'l' && contentOfJSON[3] == 's' && contentOfJSON[4] == 'e'){
-                if (!wasColon) throw std::invalid_argument("not valid JSON");
+                contentOfJSON.erase(0, 4);
+            } else if (contentOfJSON[0] == 'f' && contentOfJSON[1] == 'a' &&
+                       contentOfJSON[2] == 'l' && contentOfJSON[3] == 's' &&
+                       contentOfJSON[4] == 'e') {
+                if (!wasColon)
+                    throw std::invalid_argument("not valid JSON");
                 values.push_back("false");
-                contentOfJSON.erase(0,5);
-            }
-            else{
+                contentOfJSON.erase(0, 5);
+            } else {
                 throw std::invalid_argument("not valid JSON");
             }
             continue;
         }
 
-        contentOfJSON.erase(0,1);
+        contentOfJSON.erase(0, 1);
     }
 
-    //for (int i = 0; i < names.size(); i++){
+    // for (int i = 0; i < names.size(); i++){
     //    std::cout << names[i] << std::endl;
     //}
 
-    //for (int i = 0; i < values.size(); i++){
+    // for (int i = 0; i < values.size(); i++){
     //    std::cout << values[i] << std::endl;
     //}
 
-    std::vector <std::vector <std::string>> returningVec;
+    std::vector<std::vector<std::string>> returningVec;
     returningVec.push_back(names);
     returningVec.push_back(values);
 
