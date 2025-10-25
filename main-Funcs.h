@@ -7,5 +7,6 @@
 #include <string>
 
 void commit(std::string message);
+void log(int num);
 
 #endif

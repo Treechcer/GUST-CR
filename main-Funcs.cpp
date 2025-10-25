@@ -18,3 +18,10 @@ void commit(std::string message){
 
     system("git push");
 }
+
+void log(int num){
+    std::cout << num;
+    std::string command = "git log --oneline -n ";
+    command.append(std::to_string(num));
+    system(command.c_str());
+}
