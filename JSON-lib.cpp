@@ -10,8 +10,6 @@
 #include <windows.h>
 #endif
 
-std::string ver = "0.0.2";
-
 class JSON {
     public:
         std::string name;
@@ -35,22 +33,18 @@ class JSON {
 
 std::vector<std::vector<std::string>> parse(std::string contentOfJSON);
 
-int main() {
+std::vector<JSON> analyseJSON(std::string fileName) {
 #ifdef _WIN32
     SetConsoleOutputCP(CP_UTF8);
 #endif
 
-    std::ifstream file("test.json");
+    std::ifstream file(fileName);
     std::stringstream buffer;
     buffer << file.rdbuf();
     std::string content = buffer.str();
     file.close();
 
-    std::cout << content << std::endl;
-
-    // JSON test("test", "value");
-    // std::cout << test.name << std::endl;
-    // std::cout << test.value << std::endl;
+    //std::cout << content << std::endl;
 
     std::vector<std::vector<std::string>> parsed = parse(content);
     std::vector<JSON> atrs;
@@ -58,14 +52,11 @@ int main() {
         atrs.push_back(JSON(parsed[0][index], parsed[1][index]));
     }
 
-    for (int i = 0; i < atrs.size(); i++)
-    {
-        std::cout << atrs[i].name << " " << atrs[i].value << std::endl;
+    for (int i = 0; i < atrs.size(); i++) {
+        //std::cout << atrs[i].name << " " << atrs[i].value << std::endl;
     }
 
-    std::cout << std::any_cast<std::string>(JSON::getValuesFromName("textsd", atrs)) << std::endl;
-
-    return 0;
+    return atrs;
 }
 
 std::vector<std::vector<std::string>> parse(std::string contentOfJSON) {
@@ -139,14 +130,6 @@ std::vector<std::vector<std::string>> parse(std::string contentOfJSON) {
 
         contentOfJSON.erase(0, 1);
     }
-
-    // for (int i = 0; i < names.size(); i++){
-    //    std::cout << names[i] << std::endl;
-    //}
-
-    // for (int i = 0; i < values.size(); i++){
-    //    std::cout << values[i] << std::endl;
-    //}
 
     std::vector<std::vector<std::string>> returningVec;
     returningVec.push_back(names);
