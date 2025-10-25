@@ -19,7 +19,7 @@ void commit(std::string message, std::string url, std::string branch, std::strin
         cmd.append(url);
         system(cmd.c_str());
 
-        std::string cmd = "git pull ";
+        cmd = "git pull ";
         cmd.append(remote);
         cmd.append(" ");
         cmd.append(branch);
