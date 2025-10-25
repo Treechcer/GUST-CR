@@ -1,4 +1,6 @@
 {
     "defaultMode" : "c",
-    "useDefaultMode" : true
+    "useDefaultMode" : true,
+    "defaultBranch" : "main",
+    "defaultRemote" : "origin"
 }

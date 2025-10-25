@@ -5,13 +5,17 @@
 #include <stdexcept>
 
 int main(int argc, char *argv[]) {
-    std::string ver = "0.0.4";
+    std::string ver = "0.0.5";
     std::vector<JSON> config = analyseJSON("config.json");
 
     std::string message;
     std::string mode;
+    std::string url = "NO-INPUT";
+    std::string branch = JSON::getValuesFromName("defaultBranch", config);
+    std::string remote = JSON::getValuesFromName("defaultRemote", config);
     int num;
 
+    std::string workspace = argv[0];
     //std::cout << config.size();
 
     //std::cout << argc << std::endl;
@@ -29,6 +33,10 @@ int main(int argc, char *argv[]) {
             } catch(...){
                 throw std::invalid_argument("-n must be integer number");
             }
+        } else if (std::regex_search(argv[i], std::regex("u(r(l)?)?")) || mode == "url"){
+            url = argv[i + 1];
+        } else if (std::regex_search(argv[i], std::regex("b(r(a(n(c(h)?)?)?)?)?")) || mode == "b"){
+            branch = argv[i + 1];
         }
     }
 
@@ -39,7 +47,7 @@ int main(int argc, char *argv[]) {
     std::cout << mode;
 
     if (mode == "commit"){
-        commit(message);
+        commit(message, url, branch, remote);
     }
     else if (mode == "log"){
         log(num);

@@ -1,22 +1,59 @@
 #include <cstdlib>
+#include <filesystem>
 #include <format>
 #include <iostream>
 #include <string>
 
-void commit(std::string message){
+void commit(std::string message, std::string url, std::string branch, std::string remote) {
     //std::cout << message << std::endl;
 
-    system("git add .");
+    if (url != "NO-INPUT"){
+        if (!(std::filesystem::exists(".git") || std::filesystem::is_directory(".git"))){
+            system("git init");
+        }
 
-    std::string command = "git commit -m '";
-    command.append(message);
-    command.append("'");
+        //git remote add $config.defaultRemote "$gitURL.git"
+        std::string cmd = "git remote add ";
+        cmd.append(remote);
+        cmd.append(" ");
+        cmd.append(url);
+        system(cmd.c_str());
 
-    std::cout << command;
+        std::string cmd = "git pull ";
+        cmd.append(remote);
+        cmd.append(" ");
+        cmd.append(branch);
+        cmd.append(" --allow-unrelated-histories");
+        system(cmd.c_str());
 
-    system(command.c_str());
+        system("git add .");
 
-    system("git push");
+        cmd = "git commit -m '";
+        cmd.append(message);
+        cmd.append("'");
+        system(cmd.c_str());
+
+        cmd = "git push --set-upstream ";
+        cmd.append(remote);
+        cmd.append(" ");
+        cmd.append(branch);
+        system(cmd.c_str());
+    }
+    else{
+        system("git pull --no-edit");
+
+        system("git add .");
+
+        std::string command = "git commit -m '";
+        command.append(message);
+        command.append("'");
+
+        std::cout << command;
+
+        system(command.c_str());
+
+        system("git push");
+    }
 }
 
 void log(int num){

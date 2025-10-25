@@ -2,11 +2,12 @@
 #define main_Funcs_h
 
 #include <cstdlib>
+#include <filesystem>
 #include <format>
 #include <iostream>
 #include <string>
 
-void commit(std::string message);
+void commit(std::string message, std::string url, std::string branch, std::string remote);
 void log(int num);
 
 #endif
