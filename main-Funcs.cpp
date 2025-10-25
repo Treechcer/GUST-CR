@@ -28,9 +28,9 @@ void commit(std::string message, std::string url, std::string branch, std::strin
 
         system("git add .");
 
-        cmd = "git commit -m '";
+        cmd = "git commit -m \"";
         cmd.append(message);
-        cmd.append("'");
+        cmd.append("\"");
         system(cmd.c_str());
 
         cmd = "git push --set-upstream ";
@@ -44,11 +44,11 @@ void commit(std::string message, std::string url, std::string branch, std::strin
 
         system("git add .");
 
-        std::string command = "git commit -m '";
+        std::string command = "git commit -m \"";
         command.append(message);
-        command.append("'");
+        command.append("\"");
 
-        std::cout << command;
+        //std::cout << command;
 
         system(command.c_str());
 
@@ -57,7 +57,7 @@ void commit(std::string message, std::string url, std::string branch, std::strin
 }
 
 void log(int num){
-    std::cout << num;
+    //std::cout << num;
     std::string command = "git log --oneline -n ";
     command.append(std::to_string(num));
     system(command.c_str());

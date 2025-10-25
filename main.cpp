@@ -5,7 +5,7 @@
 #include <stdexcept>
 
 int main(int argc, char *argv[]) {
-    std::string ver = "0.0.5";
+    std::string ver = "0.0.6";
     std::vector<JSON> config = analyseJSON("config.json");
 
     std::string message;
@@ -44,7 +44,7 @@ int main(int argc, char *argv[]) {
         mode = JSON::getValuesFromName("defaultMode", config);
     }
 
-    std::cout << mode;
+    //std::cout << mode;
 
     if (mode == "commit"){
         commit(message, url, branch, remote);
