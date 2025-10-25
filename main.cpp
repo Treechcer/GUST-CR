@@ -4,7 +4,7 @@
 
 int main(int argc, char *argv[]) {
     std::string ver = "0.0.3";
-    std::vector<JSON> config = analyseJSON("test.json");
+    std::vector<JSON> config = analyseJSON("config.json");
 
     std::string message;
     std::string mode;
@@ -22,6 +22,10 @@ int main(int argc, char *argv[]) {
             mode = argv[i + 1];
             //std::cout << argv[i] << " " << argv[i + 1] << std::endl;
         }
+    }
+
+    if (mode.empty() && JSON::getValuesFromName("useDefaultMode", config) == "true") {
+        mode = "commit";
     }
 
     if (mode == "commit"){

@@ -6,18 +6,16 @@
 #include <string>
 #include <vector>
 
-
 class JSON {
   public:
     std::string name;
     std::string value;
 
     JSON(std::string name, std::string value);
-
-    static std::any getValuesFromName(const std::string name, const std::vector<JSON> atrs);
+    static std::string getValuesFromName(std::string name, std::vector<JSON> atrs);
 };
 
-std::vector<JSON> analyseJSON(const std::string fileName);
-std::vector<std::vector<std::string>> parse(const std::string contentOfJSON);
+std::vector<JSON> analyseJSON(std::string fileName);
+std::vector<std::vector<std::string>> parse(std::string contentOfJSON);
 
 #endif

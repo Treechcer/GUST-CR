@@ -1,16 +1,15 @@
-#include <any>
 #include <fstream>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
 #include <string>
 #include <vector>
-;
+#include "JSON-lib.h"
 #ifdef _WIN32
 #include <windows.h>
 #endif
 
-class JSON {
+/*class JSON {
     public:
         std::string name;
         std::string value;
@@ -20,7 +19,7 @@ class JSON {
         this->value = value;
     }
 
-    static std::any getValuesFromName(std::string name, std::vector<JSON> atrs){
+    static std::string getValuesFromName(std::string name, std::vector<JSON> atrs){
         for (int i = 0; i < atrs.size(); i++){
             if (atrs[i].name == name){
                 return atrs[i].value;
@@ -29,7 +28,22 @@ class JSON {
 
         throw std::invalid_argument("name doesn't exist in JSON");
     }
-};
+};*/
+
+JSON::JSON(std::string name, std::string value){
+    this->name = name;
+    this->value = value;
+}
+
+std::string JSON::getValuesFromName(std::string name, std::vector<JSON> atrs) {
+    for (int i = 0; i < atrs.size(); i++) {
+        if (atrs[i].name == name) {
+            return atrs[i].value;
+        }
+    }
+
+    throw std::invalid_argument("name doesn't exist in JSON");
+}
 
 std::vector<std::vector<std::string>> parse(std::string contentOfJSON);
 
@@ -52,9 +66,9 @@ std::vector<JSON> analyseJSON(std::string fileName) {
         atrs.push_back(JSON(parsed[0][index], parsed[1][index]));
     }
 
-    for (int i = 0; i < atrs.size(); i++) {
+    //for (int i = 0; i < atrs.size(); i++) {
         //std::cout << atrs[i].name << " " << atrs[i].value << std::endl;
-    }
+    //}
 
     return atrs;
 }
