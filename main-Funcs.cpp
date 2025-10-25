@@ -4,11 +4,12 @@
 #include <iostream>
 #include <string>
 
-void commit(std::string message, std::string url, std::string branch, std::string remote) {
+void commit(std::string message, std::string url, std::string branch, std::string remote)
+{
     //std::cout << message << std::endl;
 
-    if (url != "NO-INPUT"){
-        if (!(std::filesystem::exists(".git") || std::filesystem::is_directory(".git"))){
+    if (url != "NO-INPUT") {
+        if (!(std::filesystem::exists(".git") || std::filesystem::is_directory(".git"))) {
             system("git init");
         }
 
@@ -39,7 +40,7 @@ void commit(std::string message, std::string url, std::string branch, std::strin
         cmd.append(branch);
         system(cmd.c_str());
     }
-    else{
+    else {
         system("git pull --no-edit");
 
         system("git add .");
@@ -56,7 +57,8 @@ void commit(std::string message, std::string url, std::string branch, std::strin
     }
 }
 
-void log(int num){
+void log(int num)
+{
     //std::cout << num;
     std::string command = "git log --oneline -n ";
     command.append(std::to_string(num));

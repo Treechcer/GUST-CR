@@ -1,10 +1,11 @@
+#include "JSON-lib.h"
 #include <fstream>
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
 #include <string>
 #include <vector>
-#include "JSON-lib.h"
+
 #ifdef _WIN32
 #include <windows.h>
 #endif
@@ -30,12 +31,14 @@
     }
 };*/
 
-JSON::JSON(std::string name, std::string value){
+JSON::JSON(std::string name, std::string value)
+{
     this->name = name;
     this->value = value;
 }
 
-std::string JSON::getValuesFromName(std::string name, std::vector<JSON> atrs) {
+std::string JSON::getValuesFromName(std::string name, std::vector<JSON> atrs)
+{
     for (int i = 0; i < atrs.size(); i++) {
         if (atrs[i].name == name) {
             return atrs[i].value;
@@ -47,7 +50,8 @@ std::string JSON::getValuesFromName(std::string name, std::vector<JSON> atrs) {
 
 std::vector<std::vector<std::string>> parse(std::string contentOfJSON);
 
-std::vector<JSON> analyseJSON(std::string fileName) {
+std::vector<JSON> analyseJSON(std::string fileName)
+{
 #ifdef _WIN32
     SetConsoleOutputCP(CP_UTF8);
 #endif
@@ -67,13 +71,14 @@ std::vector<JSON> analyseJSON(std::string fileName) {
     }
 
     //for (int i = 0; i < atrs.size(); i++) {
-        //std::cout << atrs[i].name << " " << atrs[i].value << std::endl;
+    //std::cout << atrs[i].name << " " << atrs[i].value << std::endl;
     //}
 
     return atrs;
 }
 
-std::vector<std::vector<std::string>> parse(std::string contentOfJSON) {
+std::vector<std::vector<std::string>> parse(std::string contentOfJSON)
+{
     std::vector<std::string> names;
     std::vector<std::string> values;
     bool wasColon = false;
@@ -110,7 +115,8 @@ std::vector<std::vector<std::string>> parse(std::string contentOfJSON) {
                 values.push_back(varName);
             else
                 names.push_back(varName);
-        } else if ((c >= '0' && c <= '9') || c == '-') {
+        }
+        else if ((c >= '0' && c <= '9') || c == '-') {
             std::string value = "";
             while (true) {
                 char ch = contentOfJSON[0];
@@ -122,21 +128,24 @@ std::vector<std::vector<std::string>> parse(std::string contentOfJSON) {
             }
             values.push_back(value);
             continue;
-        } else {
+        }
+        else {
             if (contentOfJSON[0] == 't' && contentOfJSON[1] == 'r' &&
                 contentOfJSON[2] == 'u' && contentOfJSON[3] == 'e') {
                 if (!wasColon)
                     throw std::invalid_argument("not valid JSON");
                 values.push_back("true");
                 contentOfJSON.erase(0, 4);
-            } else if (contentOfJSON[0] == 'f' && contentOfJSON[1] == 'a' &&
-                       contentOfJSON[2] == 'l' && contentOfJSON[3] == 's' &&
-                       contentOfJSON[4] == 'e') {
+            }
+            else if (contentOfJSON[0] == 'f' && contentOfJSON[1] == 'a' &&
+                     contentOfJSON[2] == 'l' && contentOfJSON[3] == 's' &&
+                     contentOfJSON[4] == 'e') {
                 if (!wasColon)
                     throw std::invalid_argument("not valid JSON");
                 values.push_back("false");
                 contentOfJSON.erase(0, 5);
-            } else {
+            }
+            else {
                 throw std::invalid_argument("not valid JSON");
             }
             continue;

@@ -1,6 +1,6 @@
 {
-    "defaultMode" : "c",
-    "useDefaultMode" : true,
-    "defaultBranch" : "main",
-    "defaultRemote" : "origin"
+    "defaultMode": "c",
+    "useDefaultMode": true,
+    "defaultBranch": "main",
+    "defaultRemote": "origin"
 }

@@ -4,7 +4,8 @@
 #include <regex>
 #include <stdexcept>
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
     std::string ver = "0.0.6";
     std::vector<JSON> config = analyseJSON("config.json");
 
@@ -20,22 +21,26 @@ int main(int argc, char *argv[]) {
 
     //std::cout << argc << std::endl;
 
-    for (int i = 1; i < argc; i += 2){
-        if (std::regex_search(argv[i], std::regex("c(o?m?m?i?t?)?")) || mode == "c") {
+    for (int i = 1; i < argc; i += 2) {
+        if (std::regex_search(argv[i], std::regex("c(o(m(m(m(i(t)?)?)?)?)?)?")) || mode == "c") {
             message = argv[i + 1];
             //std::cout << argv[i] << " " << argv[i + 1] << std::endl;
-        } else if (std::string(argv[i]) == "-m") {
+        }
+        else if (std::string(argv[i]) == "-m") {
             mode = argv[i + 1];
             //std::cout << argv[i] << " " << argv[i + 1] << std::endl;
-        } else if (std::regex_search(argv[i], std::regex("n(u(m)?)?")) || mode == "n") {
-            try{
+        }
+        else if (std::regex_search(argv[i], std::regex("n(u(m)?)?")) || mode == "n") {
+            try {
                 num = std::stoi(argv[i + 1]);
-            } catch(...){
+            } catch (...) {
                 throw std::invalid_argument("-n must be integer number");
             }
-        } else if (std::regex_search(argv[i], std::regex("u(r(l)?)?")) || mode == "url"){
+        }
+        else if (std::regex_search(argv[i], std::regex("u(r(l)?)?")) || mode == "url") {
             url = argv[i + 1];
-        } else if (std::regex_search(argv[i], std::regex("b(r(a(n(c(h)?)?)?)?)?")) || mode == "b"){
+        }
+        else if (std::regex_search(argv[i], std::regex("b(r(a(n(c(h)?)?)?)?)?")) || mode == "b") {
             branch = argv[i + 1];
         }
     }
@@ -46,10 +51,10 @@ int main(int argc, char *argv[]) {
 
     //std::cout << mode;
 
-    if (mode == "commit"){
+    if (mode == "commit") {
         commit(message, url, branch, remote);
     }
-    else if (mode == "log"){
+    else if (mode == "log") {
         log(num);
     }
 

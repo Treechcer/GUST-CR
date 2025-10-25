@@ -6,7 +6,8 @@
 #include <string>
 #include <vector>
 
-class JSON {
+class JSON
+{
   public:
     std::string name;
     std::string value;
