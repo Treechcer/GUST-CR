@@ -9,5 +9,6 @@
 
 void commit(std::string message, std::string url, std::string branch, std::string remote);
 void log(int num);
+void changeGITName(std::string name, std::string email, std::string global);
 
 #endif

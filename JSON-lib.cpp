@@ -31,14 +31,12 @@
     }
 };*/
 
-JSON::JSON(std::string name, std::string value)
-{
+JSON::JSON(std::string name, std::string value) {
     this->name = name;
     this->value = value;
 }
 
-std::string JSON::getValuesFromName(std::string name, std::vector<JSON> atrs)
-{
+std::string JSON::getValuesFromName(std::string name, std::vector<JSON> atrs) {
     for (int i = 0; i < atrs.size(); i++) {
         if (atrs[i].name == name) {
             return atrs[i].value;
@@ -50,8 +48,7 @@ std::string JSON::getValuesFromName(std::string name, std::vector<JSON> atrs)
 
 std::vector<std::vector<std::string>> parse(std::string contentOfJSON);
 
-std::vector<JSON> analyseJSON(std::string fileName)
-{
+std::vector<JSON> analyseJSON(std::string fileName) {
 #ifdef _WIN32
     SetConsoleOutputCP(CP_UTF8);
 #endif
@@ -77,8 +74,7 @@ std::vector<JSON> analyseJSON(std::string fileName)
     return atrs;
 }
 
-std::vector<std::vector<std::string>> parse(std::string contentOfJSON)
-{
+std::vector<std::vector<std::string>> parse(std::string contentOfJSON) {
     std::vector<std::string> names;
     std::vector<std::string> values;
     bool wasColon = false;

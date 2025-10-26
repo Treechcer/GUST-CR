@@ -4,9 +4,10 @@
 #include <regex>
 #include <stdexcept>
 
-int main(int argc, char *argv[])
-{
-    std::string ver = "0.0.6";
+std::string changeMode(std::string mode);
+
+int main(int argc, char *argv[]) {
+    std::string ver = "0.0.7";
     std::vector<JSON> config = analyseJSON("config.json");
 
     std::string message;
@@ -45,11 +46,15 @@ int main(int argc, char *argv[])
         }
     }
 
+    if (JSON::getValuesFromName("setupName", config) == "true") {
+        changeGITName(JSON::getValuesFromName("name", config), JSON::getValuesFromName("email", config), JSON::getValuesFromName("setNameEmailGlobal", config));
+    }
+
     if (mode.empty() && JSON::getValuesFromName("useDefaultMode", config) == "true") {
         mode = JSON::getValuesFromName("defaultMode", config);
     }
 
-    //std::cout << mode;
+    mode = changeMode(mode);
 
     if (mode == "commit") {
         commit(message, url, branch, remote);
@@ -59,4 +64,13 @@ int main(int argc, char *argv[])
     }
 
     return 0;
+}
+
+std::string changeMode(std::string mode) {
+    if (mode == "c") {
+        return "commit";
+    }
+    else {
+        return mode;
+    }
 }

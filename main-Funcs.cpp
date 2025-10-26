@@ -4,8 +4,7 @@
 #include <iostream>
 #include <string>
 
-void commit(std::string message, std::string url, std::string branch, std::string remote)
-{
+void commit(std::string message, std::string url, std::string branch, std::string remote) {
     //std::cout << message << std::endl;
 
     if (url != "NO-INPUT") {
@@ -57,10 +56,30 @@ void commit(std::string message, std::string url, std::string branch, std::strin
     }
 }
 
-void log(int num)
-{
+void log(int num) {
     //std::cout << num;
     std::string command = "git log --oneline -n ";
     command.append(std::to_string(num));
     system(command.c_str());
+}
+
+void changeGITName(std::string name, std::string email, std::string global) {
+    if (global == "true") {
+        std::string cmd = "git config --global user.name ";
+        cmd.append(name);
+        system(cmd.c_str());
+
+        cmd = "git config --global user.email ";
+        cmd.append(email);
+        system(cmd.c_str());
+    }
+    else {
+        std::string cmd = "git config user.name ";
+        cmd.append(name);
+        system(cmd.c_str());
+
+        cmd = "git config user.email ";
+        cmd.append(email);
+        system(cmd.c_str());
+    }
 }
