@@ -125,6 +125,11 @@ std::string getDefaultConfig(){
             }
 
             if (c == '"') {
+                bool putIn = true;
+                if (contentOfJSON[1] == '/' and contentOfJSON[2] == '/') {
+                    putIn = false;
+                }
+
                 std::string varName = "";
                 while (true) {
                     contentOfJSON.erase(0, 1);
@@ -134,10 +139,11 @@ std::string getDefaultConfig(){
 
                     varName.push_back(ch);
                 }
-                if (wasColon)
+                if (wasColon && putIn)
                     values.push_back(varName);
-                else
+                else if (!wasColon && putIn){
                     names.push_back(varName);
+                }
             }
             else if ((c >= '0' && c <= '9') || c == '-') {
                 std::string value = "";

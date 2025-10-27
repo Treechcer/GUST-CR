@@ -4,8 +4,12 @@
     "defaultBranch": "main",
     "defaultRemote": "origin",
 
+    "//In my parser this is comment, it'll be ignored, it has to have value of '//' othervise it'll break itself" : "//",
+
     "setupName": false,
     "setNameEmailGlobal": false,
     "email": "NOT-SET",
-    "name": "NOT-SET"
+    "name": "NOT-SET",
+    
+    "defaultNum" : 5
 }

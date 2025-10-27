@@ -7,7 +7,7 @@
 std::string changeMode(std::string mode);
 
 int main(int argc, char *argv[]) {
-    std::string ver = "0.0.8";
+    std::string ver = "0.0.";
     std::vector<JSON> config = analyseJSON("config.json");
 
     std::string message;
@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
     std::string url = "NO-INPUT";
     std::string branch = JSON::getValuesFromName("defaultBranch", config);
     std::string remote = JSON::getValuesFromName("defaultRemote", config);
-    int num;
+    int num = -1;
 
     std::string workspace = argv[0];
     //std::cout << config.size();
@@ -54,6 +54,10 @@ int main(int argc, char *argv[]) {
         mode = JSON::getValuesFromName("defaultMode", config);
     }
 
+    if (num == -1) {
+        num = stoi(JSON::getValuesFromName("defaultNum", config));
+    }
+
     mode = changeMode(mode);
 
     if (mode == "commit") {
@@ -62,6 +66,10 @@ int main(int argc, char *argv[]) {
     else if (mode == "log") {
         log(num);
     }
+
+    //for (int i = 0; i < config.size(); i++) {
+    //    std::cout << config[i].name << " : " << config[i].value << std::endl;
+    //}
 
     return 0;
 }
