@@ -7,7 +7,7 @@
 std::string changeMode(std::string mode);
 
 int main(int argc, char *argv[]) {
-    std::string ver = "0.0.7";
+    std::string ver = "0.0.8";
     std::vector<JSON> config = analyseJSON("config.json");
 
     std::string message;
@@ -67,7 +67,10 @@ int main(int argc, char *argv[]) {
 }
 
 std::string changeMode(std::string mode) {
-    if (mode == "c") {
+    if (std::regex_search(mode, std::regex("c(o(m(m(m(i(t)?)?)?)?)?)?"))) {
+        return "commit";
+    }
+    else if (std::regex_search(mode, std::regex("l(o(g)?)?"))) {
         return "commit";
     }
     else {

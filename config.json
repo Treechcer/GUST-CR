@@ -4,8 +4,8 @@
     "defaultBranch": "main",
     "defaultRemote": "origin",
 
-    "setupName" : false,
-    "setNameEmailGlobal" : false,
-    "email" : "treechcer@gmail.com",
-    "name" : "Treechcer" 
+    "setupName": false,
+    "setNameEmailGlobal": false,
+    "email": "treechcer@gmail.com",
+    "name": "Treechcer"
 }

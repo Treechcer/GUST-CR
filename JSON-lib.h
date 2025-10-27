@@ -18,5 +18,6 @@ class JSON
 
 std::vector<JSON> analyseJSON(std::string fileName);
 std::vector<std::vector<std::string>> parse(std::string contentOfJSON);
+std::string getDefaultConfig();
 
 #endif
