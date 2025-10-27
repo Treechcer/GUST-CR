@@ -64,6 +64,11 @@ void log(int num) {
 }
 
 void changeGITName(std::string name, std::string email, std::string global) {
+
+    if (name == "NOT-SET" || email == "NOT-SET") {
+        throw std::invalid_argument("not valid name or email, change it from 'NOT-SET' to your Git username and emil");
+    }
+
     if (global == "true") {
         std::string cmd = "git config --global user.name ";
         cmd.append(name);

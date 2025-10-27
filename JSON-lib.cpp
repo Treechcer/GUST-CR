@@ -96,8 +96,8 @@ std::string getDefaultConfig(){
 
     "setupName": false,
     "setNameEmailGlobal": false,
-    "email": "treechcer@gmail.com",
-    "name": "Treechcer"
+    "email": "NOT-SET",
+    "name": "NOT-SET"
 })";
 }
 

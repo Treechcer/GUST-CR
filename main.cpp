@@ -71,7 +71,7 @@ std::string changeMode(std::string mode) {
         return "commit";
     }
     else if (std::regex_search(mode, std::regex("l(o(g)?)?"))) {
-        return "commit";
+        return "log";
     }
     else {
         return mode;
