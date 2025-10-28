@@ -110,3 +110,9 @@ void branchCreateSwitch(std::string branch){
 
     system("git branch");
 }
+
+void branchSwitch(std::string branch){
+    std::string cmd = "git checkout ";
+    cmd.append(branch);
+    system(cmd.c_str());
+}
