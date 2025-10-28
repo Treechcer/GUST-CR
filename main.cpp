@@ -7,7 +7,7 @@
 std::string changeMode(std::string mode);
 
 int main(int argc, char *argv[]) {
-    std::string ver = "0.0.10";
+    std::string ver = "0.0.11";
     std::vector<JSON> config = analyseJSON("config.json");
 
     std::string message;

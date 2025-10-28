@@ -98,3 +98,15 @@ void changeGITName(std::string name, std::string email, std::string global) {
         std::cout << "----------------------------" << std::endl;
     }
 }
+
+void branchCreateSwitch(std::string branch){
+    std::string cmd = "git branch ";
+    cmd.append(branch);
+    system(cmd.c_str());
+    
+    cmd = "git checkout ";
+    cmd.append(branch);
+    system(cmd.c_str());
+
+    system("git branch");
+}
