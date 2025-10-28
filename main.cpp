@@ -7,7 +7,7 @@
 std::string changeMode(std::string mode);
 
 int main(int argc, char *argv[]) {
-    std::string ver = "0.0.12";
+    std::string ver = "0.0.13";
     std::vector<JSON> config = analyseJSON("config.json");
 
     std::string message;
@@ -66,6 +66,15 @@ int main(int argc, char *argv[]) {
     else if (mode == "log") {
         log(num);
     }
+    else if (mode == "bcs") {
+        branchCreateSwitch(branch);
+    }
+    else if (mode == "bd") {
+        branchDelete(branch, JSON::getValuesFromName("forceBranchDelete", config) == "true");
+    }
+    else if (mode == "bs") {
+        branchSwitch(branch);
+    }
 
     //for (int i = 0; i < config.size(); i++) {
     //    std::cout << config[i].name << " : " << config[i].value << std::endl;
@@ -81,7 +90,18 @@ std::string changeMode(std::string mode) {
     else if (std::regex_search(mode, std::regex("l(o(g)?)?"))) {
         return "log";
     }
-    else {
-        return mode;
+    else if (std::regex_search(mode, std::regex("b(r(a(n(c(h)?)?)?)?)?"))) {
+        if (std::regex_search(mode, std::regex("c(r(e(a(t(e)?)?)?)?)?"))) {
+            if (std::regex_search(mode, std::regex("s(w(i(t(c(h)?)?)?)?)?"))) {
+                return "bcs";
+            }
+        }
+        else if (std::regex_search(mode, std::regex("d(e(l(e(t(e)?)?)?)?)?"))) {
+            return "bd";
+        }
+        else {
+            return "bs";
+        }
     }
+    return mode;
 }

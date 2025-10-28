@@ -11,5 +11,10 @@
     "email": "NOT-SET",
     "name": "NOT-SET",
     
-    "defaultNum" : 5
+    "defaultNum" : 5,
+
+    "//I recomend changing default branch and having 'forceBranchDelete' as false" : "//",
+
+    "forceBranchDelete" : false,
+    "defaltuBranch" : "main"
 }

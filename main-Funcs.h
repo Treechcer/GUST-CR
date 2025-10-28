@@ -12,5 +12,6 @@ void log(int num);
 void changeGITName(std::string name, std::string email, std::string global);
 void branchCreateSwitch(std::string branch);
 void branchSwitch(std::string branch);
+void branchDelete(std::string branch, bool forceDelete);
 
 #endif

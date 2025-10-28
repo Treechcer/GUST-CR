@@ -99,6 +99,8 @@ void changeGITName(std::string name, std::string email, std::string global) {
     }
 }
 
+//TODO: MAKE IT CHECK BRANCHES!!!
+
 void branchCreateSwitch(std::string branch){
     std::string cmd = "git branch ";
     cmd.append(branch);
@@ -115,4 +117,12 @@ void branchSwitch(std::string branch){
     std::string cmd = "git checkout ";
     cmd.append(branch);
     system(cmd.c_str());
+}
+
+void branchDelete(std::string branch, bool forceDelete){
+    std::string cmd = "git branch ";
+    cmd.append(forceDelete ? "-D" : "-d");
+    cmd.append(branch);
+    system(cmd.c_str());
+    system("git branch");
 }
