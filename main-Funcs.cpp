@@ -77,6 +77,11 @@ void changeGITName(std::string name, std::string email, std::string global) {
         cmd = "git config --global user.email ";
         cmd.append(email);
         system(cmd.c_str());
+
+        std::cout << "----------------------------" << std::endl;
+        std::cout << "Your global git name / email" << std::endl;
+        std::cout << name << " / " << email << std::endl;
+        std::cout << "----------------------------" << std::endl;
     }
     else {
         std::string cmd = "git config user.name ";
@@ -86,5 +91,10 @@ void changeGITName(std::string name, std::string email, std::string global) {
         cmd = "git config user.email ";
         cmd.append(email);
         system(cmd.c_str());
+
+        std::cout << "----------------------------" << std::endl;
+        std::cout << "Your local git name / email " << std::endl;
+        std::cout << name << " / " << email << std::endl;
+        std::cout << "----------------------------" << std::endl;
     }
 }
