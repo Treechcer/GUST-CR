@@ -126,3 +126,8 @@ void branchDelete(std::string branch, bool forceDelete){
     system(cmd.c_str());
     system("git branch");
 }
+
+void status() {
+    system("git status");
+    system("git branch");
+}

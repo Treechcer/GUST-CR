@@ -7,7 +7,7 @@
 std::string changeMode(std::string mode);
 
 int main(int argc, char *argv[]) {
-    std::string ver = "0.0.13";
+    std::string ver = "0.0.14";
     std::vector<JSON> config = analyseJSON("config.json");
 
     std::string message;
@@ -75,6 +75,9 @@ int main(int argc, char *argv[]) {
     else if (mode == "bs") {
         branchSwitch(branch);
     }
+    else if (mode == "stat"){
+        status();
+    }
 
     //for (int i = 0; i < config.size(); i++) {
     //    std::cout << config[i].name << " : " << config[i].value << std::endl;
@@ -103,5 +106,8 @@ std::string changeMode(std::string mode) {
             return "bs";
         }
     }
-    return mode;
+    else if (std::regex_search(mode, std::regex("s(t(a(t(u(s)?)?)?)?)?"))){
+        return "stat";
+    }
+        return mode;
 }

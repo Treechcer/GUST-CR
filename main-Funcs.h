@@ -13,5 +13,6 @@ void changeGITName(std::string name, std::string email, std::string global);
 void branchCreateSwitch(std::string branch);
 void branchSwitch(std::string branch);
 void branchDelete(std::string branch, bool forceDelete);
+void status();
 
 #endif
